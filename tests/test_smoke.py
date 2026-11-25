@@ -6,7 +6,7 @@ from demand.store.schema import connect, init_db, table_counts
 def test_schema_creates_all_tables(tmp_path):
     con = connect(tmp_path / "t.duckdb")
     names = init_db(con)
-    assert len(names) == 8
+    assert len(names) == 12
     counts = table_counts(con)
     assert set(counts) == set(names)
     # every fact table carries the segment dimension

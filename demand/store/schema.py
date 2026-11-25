@@ -54,6 +54,36 @@ TABLES: dict[str, str] = {
             product_id TEXT, segment TEXT, onset_ts DATE,
             factor_id TEXT, lag_days INTEGER
         )""",
+    "categories": """
+        CREATE TABLE IF NOT EXISTS categories (
+            category_id TEXT,
+            name TEXT,
+            source TEXT,
+            created_ts TIMESTAMP
+        )""",
+
+    "category_relationships": """
+        CREATE TABLE IF NOT EXISTS category_relationships (
+            parent_category TEXT,
+            child_category TEXT,
+            relationship TEXT
+        )""",
+
+    "product_categories": """
+        CREATE TABLE IF NOT EXISTS product_categories (
+            product_id TEXT,
+            category_id TEXT,
+            confidence DOUBLE,
+            source TEXT
+        )""",
+
+    "factor_categories": """
+        CREATE TABLE IF NOT EXISTS factor_categories (
+            factor_id TEXT,
+            category_id TEXT,
+            confidence DOUBLE,
+            source TEXT
+        )""",
 }
 
 

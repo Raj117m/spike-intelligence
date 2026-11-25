@@ -11,6 +11,8 @@ dependencies = [
     "pydantic>=2.6",
     "pydantic-settings>=2.2",
     "statsmodels>=0.14",
+    "requests>=2.34.2",
+    "beautifulsoup4>=4.15.0",
 ]
 
 [project.scripts]

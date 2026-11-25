@@ -19,6 +19,8 @@ import pandas as pd
 from ..detect.detector import find_spikes, robust_z
 from ..ingest.wikipedia import fetch_series, related_titles, resolve_title, top_articles
 from ..store.schema import connect, init_db
+from ..category.wiki_categories import categories
+from ..graph.store import persist_product_categories
 
 LEAD_DAYS = 14
 MIN_FACTOR_Z = 2.0     # a factor must rise this many sigmas to count
@@ -122,6 +124,20 @@ def explain(product: str, factor_titles: list[str], days: int = 180,
     df = res["frame"]
     dates = list(df.index)
     product = res["product"]
+
+
+
+
+    # Persist Wikipedia categories into the knowledge graph.
+    try:
+        persist_product_categories(
+            con,
+            product,
+            categories(product),
+        )
+    except Exception:
+        # Category extraction must never interrupt prediction.
+        pass
 
     for tbl in ("observations", "factors", "_ground_truth", "spikes", "attributions"):
         con.execute(f"DELETE FROM {tbl}")
